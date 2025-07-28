@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { MenuSection } from "@/components/MenuSection";
 import { Cart, CartItem } from "@/components/Cart";
 import { MenuItemType } from "@/components/MenuItem";
+import { AddToCartDialog } from "@/components/AddToCartDialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { Coffee, Pizza, Beef, ShoppingCart, Star } from "lucide-react";
@@ -16,6 +17,8 @@ import drinkImage from "@/assets/drink-cocktail.jpg";
 
 const Index = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [selectedItem, setSelectedItem] = useState<MenuItemType | null>(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const { toast } = useToast();
 
   // Sample menu data
@@ -127,17 +130,22 @@ const Index = () => {
     ]
   };
 
-  const handleAddToCart = (item: MenuItemType) => {
+  const handleOpenDialog = (item: MenuItemType) => {
+    setSelectedItem(item);
+    setDialogOpen(true);
+  };
+
+  const handleAddToCart = (item: MenuItemType, note?: string) => {
     setCartItems(prev => {
-      const existingItem = prev.find(cartItem => cartItem.id === item.id);
+      const existingItem = prev.find(cartItem => cartItem.id === item.id && cartItem.note === note);
       if (existingItem) {
         return prev.map(cartItem =>
-          cartItem.id === item.id
+          cartItem.id === item.id && cartItem.note === note
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
             : cartItem
         );
       } else {
-        return [...prev, { ...item, quantity: 1 }];
+        return [...prev, { ...item, quantity: 1, note }];
       }
     });
     
@@ -154,14 +162,14 @@ const Index = () => {
     }
     
     setCartItems(prev =>
-      prev.map(item =>
-        item.id === id ? { ...item, quantity } : item
+      prev.map((item, index) =>
+        `${item.id}-${index}` === id ? { ...item, quantity } : item
       )
     );
   };
 
   const handleRemoveItem = (id: string) => {
-    setCartItems(prev => prev.filter(item => item.id !== id));
+    setCartItems(prev => prev.filter((item, index) => `${item.id}-${index}` !== id));
     toast({
       title: "Item removed",
       description: "Item has been removed from your cart.",
@@ -237,7 +245,7 @@ const Index = () => {
                 <MenuSection
                   title="Wood-Fired Pizzas"
                   items={menuData.pizza}
-                  onAddToCart={handleAddToCart}
+                  onAddToCart={handleOpenDialog}
                 />
               </TabsContent>
               
@@ -245,7 +253,7 @@ const Index = () => {
                 <MenuSection
                   title="Gourmet Burgers"
                   items={menuData.burgers}
-                  onAddToCart={handleAddToCart}
+                  onAddToCart={handleOpenDialog}
                 />
               </TabsContent>
               
@@ -253,7 +261,7 @@ const Index = () => {
                 <MenuSection
                   title="Refreshing Beverages"
                   items={menuData.drinks}
-                  onAddToCart={handleAddToCart}
+                  onAddToCart={handleOpenDialog}
                 />
               </TabsContent>
             </Tabs>
@@ -272,6 +280,13 @@ const Index = () => {
           </div>
         </div>
       </div>
+
+      <AddToCartDialog
+        item={selectedItem}
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        onAddToCart={handleAddToCart}
+      />
     </div>
   );
 };

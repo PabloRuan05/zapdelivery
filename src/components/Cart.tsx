@@ -8,6 +8,7 @@ import { MenuItemType } from "./MenuItem";
 
 export interface CartItem extends MenuItemType {
   quantity: number;
+  note?: string;
 }
 
 interface CartProps {
@@ -62,8 +63,8 @@ export const Cart = ({ items, onUpdateQuantity, onRemoveItem, onClearCart }: Car
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
-        {items.map((item) => (
-          <div key={item.id} className="flex items-center gap-3">
+        {items.map((item, index) => (
+          <div key={`${item.id}-${index}`} className="flex items-center gap-3">
             <img
               src={item.image}
               alt={item.name}
@@ -71,11 +72,14 @@ export const Cart = ({ items, onUpdateQuantity, onRemoveItem, onClearCart }: Car
             />
             <div className="flex-1 min-w-0">
               <h4 className="font-medium text-sm truncate">{item.name}</h4>
+              {item.note && (
+                <p className="text-xs text-muted-foreground truncate">Note: {item.note}</p>
+              )}
               <p className="text-warm-orange font-semibold">${item.price.toFixed(2)}</p>
             </div>
             <div className="flex items-center gap-2">
               <Button
-                onClick={() => onUpdateQuantity(item.id, Math.max(0, item.quantity - 1))}
+                onClick={() => onUpdateQuantity(`${item.id}-${index}`, Math.max(0, item.quantity - 1))}
                 variant="outline"
                 size="sm"
                 className="w-8 h-8 p-0"
@@ -84,7 +88,7 @@ export const Cart = ({ items, onUpdateQuantity, onRemoveItem, onClearCart }: Car
               </Button>
               <span className="w-8 text-center font-medium">{item.quantity}</span>
               <Button
-                onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
+                onClick={() => onUpdateQuantity(`${item.id}-${index}`, item.quantity + 1)}
                 variant="outline"
                 size="sm"
                 className="w-8 h-8 p-0"
@@ -93,7 +97,7 @@ export const Cart = ({ items, onUpdateQuantity, onRemoveItem, onClearCart }: Car
               </Button>
             </div>
             <Button
-              onClick={() => onRemoveItem(item.id)}
+              onClick={() => onRemoveItem(`${item.id}-${index}`)}
               variant="ghost"
               size="sm"
               className="w-8 h-8 p-0 text-destructive hover:text-destructive"
