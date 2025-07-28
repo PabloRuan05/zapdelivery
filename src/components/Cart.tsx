@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -17,6 +18,7 @@ interface CartProps {
 }
 
 export const Cart = ({ items, onUpdateQuantity, onRemoveItem, onClearCart }: CartProps) => {
+  const navigate = useNavigate();
   const total = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -112,6 +114,7 @@ export const Cart = ({ items, onUpdateQuantity, onRemoveItem, onClearCart }: Car
             className="w-full" 
             variant="cart"
             size="lg"
+            onClick={() => navigate("/checkout", { state: { cartItems: items } })}
           >
             Proceed to Checkout
           </Button>
