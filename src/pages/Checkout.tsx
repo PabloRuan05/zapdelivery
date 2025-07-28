@@ -62,14 +62,36 @@ const Checkout = () => {
       return;
     }
 
-    // Here you would typically integrate with a payment processor
-    toast({
-      title: "Order Placed Successfully!",
-      description: `Your order total of $${total.toFixed(2)} has been processed. Estimated delivery: 30-45 minutes.`,
-    });
+    // Format order data for WhatsApp
+    const orderData = [
+      "🍽️ *NEW ORDER*",
+      "",
+      "📋 *ORDER SUMMARY:*",
+      ...cartItems.map(item => `• ${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`),
+      "",
+      `💰 Subtotal: $${subtotal.toFixed(2)}`,
+      `🚚 Delivery Fee: $${deliveryFee.toFixed(2)}`,
+      `📊 Tax: $${tax.toFixed(2)}`,
+      `*TOTAL: $${total.toFixed(2)}*`,
+      "",
+      "🚚 *DELIVERY INFORMATION:*",
+      `👤 Name: ${deliveryInfo.fullName}`,
+      `📧 Email: ${deliveryInfo.email}`,
+      `📞 Phone: ${deliveryInfo.phone}`,
+      `📍 Address: ${deliveryInfo.address}`,
+      `🏙️ City: ${deliveryInfo.city}`,
+      `📮 Zip Code: ${deliveryInfo.zipCode}`,
+      ...(deliveryInfo.deliveryNotes ? [`📝 Notes: ${deliveryInfo.deliveryNotes}`] : []),
+      "",
+      "💳 *PAYMENT METHOD:*",
+      paymentMethod === "card" ? "💳 Credit/Debit Card" : "💵 Cash on Delivery"
+    ].join("\n");
 
-    // Navigate to a success page or back to menu
-    navigate("/", { state: { orderSuccess: true } });
+    // Encode the message for URL
+    const encodedMessage = encodeURIComponent(orderData);
+    
+    // Redirect to WhatsApp
+    window.location.href = `https://api.whatsapp.com/send?phone=5598982074378&text=${encodedMessage}`;
   };
 
   if (cartItems.length === 0) {
