@@ -67,7 +67,10 @@ const Checkout = () => {
       "🍽️ *NEW ORDER*",
       "",
       "📋 *ORDER SUMMARY:*",
-      ...cartItems.map(item => `• ${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`),
+      ...cartItems.map(item => {
+        const itemLine = `• ${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`;
+        return item.note ? `${itemLine}\n  📝 Note: ${item.note}` : itemLine;
+      }),
       "",
       `💰 Subtotal: $${subtotal.toFixed(2)}`,
       `🚚 Delivery Fee: $${deliveryFee.toFixed(2)}`,
