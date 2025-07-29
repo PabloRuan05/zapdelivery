@@ -40,9 +40,7 @@ const Checkout = () => {
   });
 
   const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  const deliveryFee = 3.99;
-  const tax = subtotal * 0.08; // 8% tax
-  const total = subtotal + deliveryFee + tax;
+  const total = subtotal;
 
   const handleInputChange = (field: keyof DeliveryInfo, value: string) => {
     setDeliveryInfo(prev => ({ ...prev, [field]: value }));
@@ -72,9 +70,6 @@ const Checkout = () => {
         return item.note ? `${itemLine}\n  📝 Note: ${item.note}` : itemLine;
       }),
       "",
-      `💰 Subtotal: $${subtotal.toFixed(2)}`,
-      `🚚 Delivery Fee: $${deliveryFee.toFixed(2)}`,
-      `📊 Tax: $${tax.toFixed(2)}`,
       `*TOTAL: $${total.toFixed(2)}*`,
       "",
       "🚚 *DELIVERY INFORMATION:*",
@@ -173,19 +168,6 @@ const Checkout = () => {
                 <Separator />
                 
                 <div className="space-y-2">
-                  <div className="flex justify-between">
-                    <span>Subtotal</span>
-                    <span>${subtotal.toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Delivery Fee</span>
-                    <span>${deliveryFee.toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Tax</span>
-                    <span>${tax.toFixed(2)}</span>
-                  </div>
-                  <Separator />
                   <div className="flex justify-between text-lg font-bold">
                     <span>Total</span>
                     <span className="text-warm-orange">${total.toFixed(2)}</span>
