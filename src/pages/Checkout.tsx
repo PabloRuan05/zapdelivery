@@ -19,7 +19,6 @@ interface DeliveryInfo {
   neighborhood: string;
   block: string;
   houseNumber: string;
-  zipCode: string;
   deliveryNotes: string;
 }
 
@@ -37,7 +36,6 @@ const Checkout = () => {
     neighborhood: "",
     block: "",
     houseNumber: "",
-    zipCode: "",
     deliveryNotes: "",
   });
 
@@ -50,7 +48,7 @@ const Checkout = () => {
 
   const handleSubmitOrder = () => {
     // Validate required fields
-    const requiredFields = ['fullName', 'phone', 'address', 'neighborhood', 'block', 'houseNumber', 'zipCode'];
+    const requiredFields = ['fullName', 'phone', 'address', 'neighborhood', 'block', 'houseNumber'];
     const missingFields = requiredFields.filter(field => !deliveryInfo[field as keyof DeliveryInfo].trim());
     
     if (missingFields.length > 0) {
@@ -81,7 +79,6 @@ const Checkout = () => {
       `🏘️ Neighborhood: ${deliveryInfo.neighborhood}`,
       `🏢 Block: ${deliveryInfo.block}`,
       `🏠 House/Building: ${deliveryInfo.houseNumber}`,
-      `📮 Zip Code: ${deliveryInfo.zipCode}`,
       ...(deliveryInfo.deliveryNotes ? [`📝 Notes: ${deliveryInfo.deliveryNotes}`] : []),
       "",
       "💳 *PAYMENT METHOD:*",
@@ -237,15 +234,6 @@ const Checkout = () => {
                   />
                 </div>
                 
-                <div className="space-y-2">
-                  <Label htmlFor="zipCode">Zip Code *</Label>
-                  <Input
-                    id="zipCode"
-                    value={deliveryInfo.zipCode}
-                    onChange={(e) => handleInputChange("zipCode", e.target.value)}
-                    placeholder="Enter zip code"
-                  />
-                </div>
                 
                 <div className="md:col-span-2 space-y-2">
                   <Label htmlFor="address" className="flex items-center gap-2">
