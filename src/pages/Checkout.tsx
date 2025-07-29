@@ -87,7 +87,8 @@ const Checkout = () => {
       ...(deliveryInfo.deliveryNotes ? [`📝 Notes: ${deliveryInfo.deliveryNotes}`] : []),
       "",
       "💳 *PAYMENT METHOD:*",
-      paymentMethod === "card" ? "💳 Credit/Debit Card" : "💵 Cash on Delivery"
+      paymentMethod === "card" ? "💳 Credit/Debit Card" : 
+      paymentMethod === "cash" ? "💵 Cash on Delivery" : "🏦 Pix"
     ].join("\n");
 
     // Encode the message for URL
@@ -321,6 +322,17 @@ const Checkout = () => {
                         Cash on Delivery
                       </div>
                       <p className="text-sm text-muted-foreground">Pay with cash when your order arrives</p>
+                    </Label>
+                  </div>
+                  
+                  <div className="flex items-center space-x-2 p-4 border rounded-lg hover:bg-accent/50 cursor-pointer">
+                    <RadioGroupItem value="pix" id="pix" />
+                    <Label htmlFor="pix" className="flex-1 cursor-pointer">
+                      <div className="flex items-center gap-2">
+                        <span className="w-4 h-4 text-center">🏦</span>
+                        Pix
+                      </div>
+                      <p className="text-sm text-muted-foreground">Instant payment via Pix</p>
                     </Label>
                   </div>
                 </RadioGroup>
