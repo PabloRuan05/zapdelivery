@@ -14,10 +14,11 @@ import { CartItem } from "@/components/Cart";
 
 interface DeliveryInfo {
   fullName: string;
-  email: string;
   phone: string;
   address: string;
-  city: string;
+  neighborhood: string;
+  block: string;
+  houseNumber: string;
   zipCode: string;
   deliveryNotes: string;
 }
@@ -31,10 +32,11 @@ const Checkout = () => {
   const [paymentMethod, setPaymentMethod] = useState("card");
   const [deliveryInfo, setDeliveryInfo] = useState<DeliveryInfo>({
     fullName: "",
-    email: "",
     phone: "",
     address: "",
-    city: "",
+    neighborhood: "",
+    block: "",
+    houseNumber: "",
     zipCode: "",
     deliveryNotes: "",
   });
@@ -48,8 +50,8 @@ const Checkout = () => {
 
   const handleSubmitOrder = () => {
     // Validate required fields
-    const requiredFields = ['fullName', 'email', 'phone', 'address', 'city', 'zipCode'];
-    const missingFields = requiredFields.filter(field => !deliveryInfo[field].trim());
+    const requiredFields = ['fullName', 'phone', 'address', 'neighborhood', 'block', 'houseNumber', 'zipCode'];
+    const missingFields = requiredFields.filter(field => !deliveryInfo[field as keyof DeliveryInfo].trim());
     
     if (missingFields.length > 0) {
       toast({
@@ -74,10 +76,11 @@ const Checkout = () => {
       "",
       "🚚 *DELIVERY INFORMATION:*",
       `👤 Name: ${deliveryInfo.fullName}`,
-      `📧 Email: ${deliveryInfo.email}`,
       `📞 Phone: ${deliveryInfo.phone}`,
       `📍 Address: ${deliveryInfo.address}`,
-      `🏙️ City: ${deliveryInfo.city}`,
+      `🏘️ Neighborhood: ${deliveryInfo.neighborhood}`,
+      `🏢 Block: ${deliveryInfo.block}`,
+      `🏠 House/Building: ${deliveryInfo.houseNumber}`,
       `📮 Zip Code: ${deliveryInfo.zipCode}`,
       ...(deliveryInfo.deliveryNotes ? [`📝 Notes: ${deliveryInfo.deliveryNotes}`] : []),
       "",
@@ -202,20 +205,6 @@ const Checkout = () => {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="email" className="flex items-center gap-2">
-                    <Mail className="w-4 h-4" />
-                    Email Address *
-                  </Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={deliveryInfo.email}
-                    onChange={(e) => handleInputChange("email", e.target.value)}
-                    placeholder="Enter your email"
-                  />
-                </div>
-                
-                <div className="space-y-2">
                   <Label htmlFor="phone" className="flex items-center gap-2">
                     <Phone className="w-4 h-4" />
                     Phone Number *
@@ -225,6 +214,26 @@ const Checkout = () => {
                     value={deliveryInfo.phone}
                     onChange={(e) => handleInputChange("phone", e.target.value)}
                     placeholder="Enter your phone number"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="neighborhood">Neighborhood *</Label>
+                  <Input
+                    id="neighborhood"
+                    value={deliveryInfo.neighborhood}
+                    onChange={(e) => handleInputChange("neighborhood", e.target.value)}
+                    placeholder="Enter your neighborhood"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="block">Block *</Label>
+                  <Input
+                    id="block"
+                    value={deliveryInfo.block}
+                    onChange={(e) => handleInputChange("block", e.target.value)}
+                    placeholder="Enter block number/name"
                   />
                 </div>
                 
@@ -252,12 +261,12 @@ const Checkout = () => {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="city">City *</Label>
+                  <Label htmlFor="houseNumber">House/Building Number *</Label>
                   <Input
-                    id="city"
-                    value={deliveryInfo.city}
-                    onChange={(e) => handleInputChange("city", e.target.value)}
-                    placeholder="Enter your city"
+                    id="houseNumber"
+                    value={deliveryInfo.houseNumber}
+                    onChange={(e) => handleInputChange("houseNumber", e.target.value)}
+                    placeholder="Enter house or building number"
                   />
                 </div>
                 
