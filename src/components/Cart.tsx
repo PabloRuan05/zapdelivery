@@ -29,14 +29,14 @@ export const Cart = ({ items, onUpdateQuantity, onRemoveItem, onClearCart }: Car
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <ShoppingCart className="w-5 h-5" />
-            Your Cart
+            Seu Carrinho
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="text-center py-8">
             <ShoppingCart className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
-            <p className="text-muted-foreground">Your cart is empty</p>
-            <p className="text-sm text-muted-foreground">Add some delicious items to get started!</p>
+            <p className="text-muted-foreground">Seu carrinho está vazio</p>
+            <p className="text-sm text-muted-foreground">Adicione alguns itens deliciosos para começar!</p>
           </div>
         </CardContent>
       </Card>
@@ -49,7 +49,7 @@ export const Cart = ({ items, onUpdateQuantity, onRemoveItem, onClearCart }: Car
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">
             <ShoppingCart className="w-5 h-5" />
-            Your Cart
+            Seu Carrinho
             <Badge variant="secondary">{totalItems}</Badge>
           </CardTitle>
           <Button 
@@ -72,10 +72,10 @@ export const Cart = ({ items, onUpdateQuantity, onRemoveItem, onClearCart }: Car
             />
             <div className="flex-1 min-w-0">
               <h4 className="font-medium text-sm truncate">{item.name}</h4>
-              {item.note && (
-                <p className="text-xs text-muted-foreground truncate">Note: {item.note}</p>
+                      {item.note && (
+                <p className="text-xs text-muted-foreground truncate">Obs: {item.note}</p>
               )}
-              <p className="text-warm-orange font-semibold">${item.price.toFixed(2)}</p>
+              <p className="text-warm-orange font-semibold">R$ {item.price.toFixed(2)}</p>
             </div>
             <div className="flex items-center gap-2">
               <Button
@@ -112,7 +112,7 @@ export const Cart = ({ items, onUpdateQuantity, onRemoveItem, onClearCart }: Car
         <div className="space-y-3">
           <div className="flex justify-between items-center text-lg font-semibold">
             <span>Total</span>
-            <span className="text-warm-orange">${total.toFixed(2)}</span>
+            <span className="text-warm-orange">R$ {total.toFixed(2)}</span>
           </div>
           <Button 
             className="w-full" 
@@ -120,7 +120,7 @@ export const Cart = ({ items, onUpdateQuantity, onRemoveItem, onClearCart }: Car
             size="lg"
             onClick={() => navigate("/checkout", { state: { cartItems: items } })}
           >
-            Proceed to Checkout
+            Finalizar Pedido
           </Button>
         </div>
       </CardContent>

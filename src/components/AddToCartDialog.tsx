@@ -33,9 +33,9 @@ export const AddToCartDialog = ({ item, open, onClose, onAddToCart }: AddToCartD
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Add to Cart</DialogTitle>
+          <DialogTitle>Adicionar ao Carrinho</DialogTitle>
           <DialogDescription>
-            Customize your order with any special requests or ingredient changes.
+            Personalize seu pedido com solicitações especiais ou mudanças nos ingredientes.
           </DialogDescription>
         </DialogHeader>
         
@@ -50,16 +50,16 @@ export const AddToCartDialog = ({ item, open, onClose, onAddToCart }: AddToCartD
             <div className="flex-1">
               <h3 className="font-semibold text-lg">{item.name}</h3>
               <p className="text-sm text-muted-foreground mb-1">{item.description}</p>
-              <p className="text-lg font-bold text-warm-orange">${item.price.toFixed(2)}</p>
+              <p className="text-lg font-bold text-warm-orange">R$ {item.price.toFixed(2)}</p>
             </div>
           </div>
 
           {/* Note Input */}
           <div className="space-y-2">
-            <Label htmlFor="note">Special Instructions (Optional)</Label>
+            <Label htmlFor="note">Instruções Especiais (Opcional)</Label>
             <Textarea
               id="note"
-              placeholder="Add any special requests, allergies, or ingredient changes..."
+              placeholder="Adicione solicitações especiais, alergias ou mudanças nos ingredientes..."
               value={note}
               onChange={(e) => setNote(e.target.value)}
               className="min-h-[80px]"
@@ -69,11 +69,11 @@ export const AddToCartDialog = ({ item, open, onClose, onAddToCart }: AddToCartD
           {/* Actions */}
           <div className="flex gap-2 pt-2">
             <Button variant="outline" onClick={handleClose} className="flex-1">
-              Cancel
+              Cancelar
             </Button>
             <Button onClick={handleAddToCart} variant="warm" className="flex-1">
               <Plus className="w-4 h-4 mr-2" />
-              Add to Cart
+              Adicionar ao Carrinho
             </Button>
           </div>
         </div>

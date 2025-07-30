@@ -26,8 +26,8 @@ const Index = () => {
     drinks: [
       {
         id: "drink-1",
-        name: "Classic Mojito",
-        description: "Fresh mint, lime juice, white rum, and soda water served over ice",
+        name: "Mojito Clássico",
+        description: "Hortelã fresca, suco de limão, rum branco e água com gás servido com gelo",
         price: 12.99,
         image: drinkImage,
         category: "drinks",
@@ -35,24 +35,24 @@ const Index = () => {
       },
       {
         id: "drink-2",
-        name: "Fresh Orange Juice",
-        description: "Freshly squeezed orange juice, served chilled",
+        name: "Suco de Laranja Natural",
+        description: "Suco de laranja espremido na hora, servido gelado",
         price: 6.99,
         image: drinkImage,
         category: "drinks"
       },
       {
         id: "drink-3",
-        name: "Craft Beer",
-        description: "Local brewery selection, crisp and refreshing",
+        name: "Cerveja Artesanal",
+        description: "Seleção de cervejaria local, crocante e refrescante",
         price: 8.99,
         image: drinkImage,
         category: "drinks"
       },
       {
         id: "drink-4",
-        name: "Iced Coffee",
-        description: "Cold brew coffee served with ice and cream",
+        name: "Café Gelado",
+        description: "Café cold brew servido com gelo e creme",
         price: 5.99,
         image: drinkImage,
         category: "drinks"
@@ -61,8 +61,8 @@ const Index = () => {
     pizza: [
       {
         id: "pizza-1",
-        name: "Margherita Classic",
-        description: "Fresh mozzarella, tomato sauce, basil, and extra virgin olive oil",
+        name: "Margherita Clássica",
+        description: "Mussarela fresca, molho de tomate, manjericão e azeite extravirgem",
         price: 18.99,
         image: pizzaImage,
         category: "pizza",
@@ -70,8 +70,8 @@ const Index = () => {
       },
       {
         id: "pizza-2",
-        name: "Pepperoni Supreme",
-        description: "Pepperoni, mozzarella cheese, and our signature tomato sauce",
+        name: "Pepperoni Suprema",
+        description: "Pepperoni, queijo mussarela e nosso molho de tomate especial",
         price: 21.99,
         image: pizzaImage,
         category: "pizza"
@@ -79,15 +79,15 @@ const Index = () => {
       {
         id: "pizza-3",
         name: "Quattro Formaggi",
-        description: "Four cheese blend: mozzarella, gorgonzola, parmesan, and ricotta",
+        description: "Mistura de quatro queijos: mussarela, gorgonzola, parmesão e ricota",
         price: 23.99,
         image: pizzaImage,
         category: "pizza"
       },
       {
         id: "pizza-4",
-        name: "Vegetarian Delight",
-        description: "Bell peppers, mushrooms, olives, onions, and fresh herbs",
+        name: "Delícia Vegetariana",
+        description: "Pimentões, cogumelos, azeitonas, cebolas e ervas frescas",
         price: 19.99,
         image: pizzaImage,
         category: "pizza"
@@ -96,8 +96,8 @@ const Index = () => {
     burgers: [
       {
         id: "burger-1",
-        name: "Classic Beef Burger",
-        description: "Juicy beef patty, lettuce, tomato, onion, pickles, and our special sauce",
+        name: "Hambúrguer Bovino Clássico",
+        description: "Hambúrguer suculento, alface, tomate, cebola, picles e nosso molho especial",
         price: 15.99,
         image: burgerImage,
         category: "burgers",
@@ -105,24 +105,24 @@ const Index = () => {
       },
       {
         id: "burger-2",
-        name: "BBQ Bacon Burger",
-        description: "Beef patty, crispy bacon, BBQ sauce, cheddar cheese, and onion rings",
+        name: "Hambúrguer BBQ com Bacon",
+        description: "Hambúrguer bovino, bacon crocante, molho BBQ, queijo cheddar e onion rings",
         price: 18.99,
         image: burgerImage,
         category: "burgers"
       },
       {
         id: "burger-3",
-        name: "Chicken Deluxe",
-        description: "Grilled chicken breast, avocado, swiss cheese, and herb mayo",
+        name: "Frango Deluxe",
+        description: "Peito de frango grelhado, abacate, queijo suíço e maionese de ervas",
         price: 16.99,
         image: burgerImage,
         category: "burgers"
       },
       {
         id: "burger-4",
-        name: "Veggie Burger",
-        description: "Plant-based patty, mixed greens, tomato, and tahini sauce",
+        name: "Hambúrguer Vegano",
+        description: "Hambúrguer à base de plantas, folhas verdes, tomate e molho de tahine",
         price: 14.99,
         image: burgerImage,
         category: "burgers"
@@ -150,8 +150,8 @@ const Index = () => {
     });
     
     toast({
-      title: "Added to cart!",
-      description: `${item.name} has been added to your cart.`,
+      title: "Adicionado ao carrinho!",
+      description: `${item.name} foi adicionado ao seu carrinho.`,
     });
   };
 
@@ -171,16 +171,16 @@ const Index = () => {
   const handleRemoveItem = (id: string) => {
     setCartItems(prev => prev.filter((item, index) => `${item.id}-${index}` !== id));
     toast({
-      title: "Item removed",
-      description: "Item has been removed from your cart.",
+      title: "Item removido",
+      description: "Item foi removido do seu carrinho.",
     });
   };
 
   const handleClearCart = () => {
     setCartItems([]);
     toast({
-      title: "Cart cleared",
-      description: "All items have been removed from your cart.",
+      title: "Carrinho limpo",
+      description: "Todos os itens foram removidos do seu carrinho.",
     });
   };
 
@@ -198,16 +198,16 @@ const Index = () => {
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-foreground">Bistro Delight</h1>
-                <p className="text-sm text-muted-foreground">Gourmet dining experience</p>
+                <p className="text-sm text-muted-foreground">Experiência gastronômica gourmet</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
               <Badge variant="secondary" className="hidden sm:flex">
-                {totalItems} {totalItems === 1 ? 'item' : 'items'} in cart
+                {totalItems} {totalItems === 1 ? 'item' : 'itens'} no carrinho
               </Badge>
               <Button variant="warm" className="relative">
                 <ShoppingCart className="w-4 h-4 mr-2" />
-                Cart
+                Carrinho
                 {totalItems > 0 && (
                   <Badge className="absolute -top-2 -right-2 w-5 h-5 flex items-center justify-center p-0 bg-warm-red text-primary-foreground text-xs">
                     {totalItems}
@@ -228,22 +228,22 @@ const Index = () => {
                 <TabsList className="grid w-full max-w-md grid-cols-3 bg-card border">
                   <TabsTrigger value="pizza" className="flex items-center gap-2 data-[state=active]:bg-warm-orange data-[state=active]:text-primary-foreground">
                     <Pizza className="w-4 h-4" />
-                    Pizza
+                    Pizzas
                   </TabsTrigger>
                   <TabsTrigger value="burgers" className="flex items-center gap-2 data-[state=active]:bg-warm-orange data-[state=active]:text-primary-foreground">
                     <Beef className="w-4 h-4" />
-                    Burgers
+                    Hambúrguers
                   </TabsTrigger>
                   <TabsTrigger value="drinks" className="flex items-center gap-2 data-[state=active]:bg-warm-orange data-[state=active]:text-primary-foreground">
                     <Coffee className="w-4 h-4" />
-                    Drinks
+                    Bebidas
                   </TabsTrigger>
                 </TabsList>
               </div>
 
               <TabsContent value="pizza">
                 <MenuSection
-                  title="Wood-Fired Pizzas"
+                  title="Pizzas Artesanais"
                   items={menuData.pizza}
                   onAddToCart={handleOpenDialog}
                 />
@@ -251,7 +251,7 @@ const Index = () => {
               
               <TabsContent value="burgers">
                 <MenuSection
-                  title="Gourmet Burgers"
+                  title="Hambúrguers Gourmet"
                   items={menuData.burgers}
                   onAddToCart={handleOpenDialog}
                 />
@@ -259,7 +259,7 @@ const Index = () => {
               
               <TabsContent value="drinks">
                 <MenuSection
-                  title="Refreshing Beverages"
+                  title="Bebidas Refrescantes"
                   items={menuData.drinks}
                   onAddToCart={handleOpenDialog}
                 />

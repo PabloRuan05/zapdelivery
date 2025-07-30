@@ -36,7 +36,7 @@ export const MenuItem = ({ item, onAddToCart }: MenuItemProps) => {
       <CardContent className="p-4">
         <div className="flex justify-between items-start mb-2">
           <h3 className="font-semibold text-lg text-foreground">{item.name}</h3>
-          <span className="text-xl font-bold text-warm-orange">${item.price.toFixed(2)}</span>
+          <span className="text-xl font-bold text-warm-orange">R$ {item.price.toFixed(2)}</span>
         </div>
         <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
           {item.description}
@@ -47,7 +47,7 @@ export const MenuItem = ({ item, onAddToCart }: MenuItemProps) => {
           variant="warm"
         >
           <Plus className="w-4 h-4 mr-2" />
-          Add to Cart
+          Adicionar ao Carrinho
         </Button>
       </CardContent>
     </Card>
