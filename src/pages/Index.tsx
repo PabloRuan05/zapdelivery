@@ -287,6 +287,24 @@ const Index = () => {
         onClose={() => setDialogOpen(false)}
         onAddToCart={handleAddToCart}
       />
+
+      {/* Footer */}
+      <footer className="bg-card/80 backdrop-blur-sm border-t border-border/50 mt-12">
+        <div className="container mx-auto px-4 py-6">
+          <div className="text-center">
+            <p className="text-sm text-muted-foreground">
+              Developed by{" "}
+              <a 
+                href="#" 
+                className="text-warm-orange hover:text-warm-red transition-colors underline underline-offset-4"
+              >
+                BlooCode
+              </a>
+              .
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
