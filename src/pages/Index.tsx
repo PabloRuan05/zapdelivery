@@ -8,13 +8,23 @@ import { MenuItemType } from "@/components/MenuItem";
 import { AddToCartDialog } from "@/components/AddToCartDialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Coffee, Pizza, Beef, ShoppingCart, IceCream, Salad, Soup } from "lucide-react";
+import {
+  Coffee,
+  Pizza,
+  Beef,
+  ShoppingCart,
+  Beer,
+  Sandwich,
+  HandPlatter,
+} from "lucide-react";
 
 // Import images
 import pizzaImage from "@/assets/pizza-margherita.jpg";
 import burgerImage from "@/assets/burger-classic.jpg";
 import drinkImage from "@/assets/drink-cocktail.jpg";
-import logoImage from "@/assets/bistro-logo.png";
+import logoImage from "@/assets/logo.jpg";
+import churras from "@/assets/churras.jpeg";
+import batata from "@/assets/batata.jpg";
 
 const Index = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -27,12 +37,13 @@ const Index = () => {
     drinks: [
       {
         id: "drink-1",
-        name: "Mojito Clássico",
-        description: "Hortelã fresca, suco de limão, rum branco e água com gás servido com gelo",
+        name: "Refri 250ml",
+        description:
+          "Hortelã fresca, suco de limão, rum branco e água com gás servido com gelo",
         price: 12.99,
         image: drinkImage,
         category: "drinks",
-        isPopular: true
+        // isPopular: true,
       },
       {
         id: "drink-2",
@@ -40,50 +51,53 @@ const Index = () => {
         description: "Suco de laranja espremido na hora, servido gelado",
         price: 6.99,
         image: drinkImage,
-        category: "drinks"
+        category: "drinks",
       },
       {
         id: "drink-3",
-        name: "Cerveja Artesanal",
+        name: "Cerveja",
         description: "Seleção de cervejaria local, crocante e refrescante",
         price: 8.99,
         image: drinkImage,
-        category: "drinks"
+        category: "drinks",
       },
       {
         id: "drink-4",
-        name: "Café Gelado",
+        name: "Coca",
         description: "Café cold brew servido com gelo e creme",
         price: 5.99,
         image: drinkImage,
-        category: "drinks"
-      }
+        category: "drinks",
+      },
     ],
     pizza: [
       {
         id: "pizza-1",
-        name: "Margherita Clássica",
-        description: "Mussarela fresca, molho de tomate, manjericão e azeite extravirgem",
+        name: "Pizza de Mussarela",
+        description:
+          "Mussarela fresca, molho de tomate, manjericão e azeite extravirgem",
         price: 18.99,
         image: pizzaImage,
         category: "pizza",
-        isPopular: true
+        // isPopular: true,
       },
       {
         id: "pizza-2",
-        name: "Pepperoni Suprema",
-        description: "Pepperoni, queijo mussarela e nosso molho de tomate especial",
+        name: "Pizza de Pepperoni",
+        description:
+          "Pepperoni, queijo mussarela e nosso molho de tomate especial",
         price: 21.99,
         image: pizzaImage,
-        category: "pizza"
+        category: "pizza",
       },
       {
         id: "pizza-3",
-        name: "Quattro Formaggi",
-        description: "Mistura de quatro queijos: mussarela, gorgonzola, parmesão e ricota",
+        name: "Pizza Quatro Queijos",
+        description:
+          "Mistura de quatro queijos: mussarela, gorgonzola, parmesão e ricota",
         price: 23.99,
         image: pizzaImage,
-        category: "pizza"
+        category: "pizza",
       },
       {
         id: "pizza-4",
@@ -91,152 +105,107 @@ const Index = () => {
         description: "Pimentões, cogumelos, azeitonas, cebolas e ervas frescas",
         price: 19.99,
         image: pizzaImage,
-        category: "pizza"
-      }
+        category: "pizza",
+      },
     ],
     burgers: [
       {
         id: "burger-1",
-        name: "Hambúrguer Bovino Clássico",
-        description: "Hambúrguer suculento, alface, tomate, cebola, picles e nosso molho especial",
+        name: "Hambúrguer Clássico",
+        description:
+          "Hambúrguer suculento, alface, tomate, cebola, picles e nosso molho especial",
         price: 15.99,
         image: burgerImage,
         category: "burgers",
-        isPopular: true
+        // isPopular: true,
       },
       {
         id: "burger-2",
         name: "Hambúrguer BBQ com Bacon",
-        description: "Hambúrguer bovino, bacon crocante, molho BBQ, queijo cheddar e onion rings",
+        description:
+          "Hambúrguer, bacon crocante, molho BBQ, queijo cheddar e onion rings",
         price: 18.99,
         image: burgerImage,
-        category: "burgers"
+        category: "burgers",
       },
       {
         id: "burger-3",
         name: "Frango Deluxe",
-        description: "Peito de frango grelhado, abacate, queijo suíço e maionese de ervas",
+        description:
+          "Peito de frango grelhado, abacate, queijo suíço e maionese de ervas",
         price: 16.99,
         image: burgerImage,
-        category: "burgers"
+        category: "burgers",
       },
       {
         id: "burger-4",
         name: "Hambúrguer Vegano",
-        description: "Hambúrguer à base de plantas, folhas verdes, tomate e molho de tahine",
+        description:
+          "Hambúrguer à base de plantas, folhas verdes, tomate e molho de tahine",
         price: 14.99,
         image: burgerImage,
-        category: "burgers"
-      }
+        category: "burgers",
+      },
     ],
-    appetizers: [
+    churrasco: [
       {
-        id: "appetizer-1",
-        name: "Bruschetta Clássica",
-        description: "Pão tostado com tomate fresco, manjericão, alho e azeite extravirgem",
-        price: 9.99,
-        image: pizzaImage,
-        category: "appetizers",
-        isPopular: true
+        id: "churras-1",
+        name: "Churrasco Clássico",
+        description:
+          "Cortes selecionados na brasa, servidos com farofa, vinagrete e pão de alho.",
+        price: 20.0,
+        image: churras,
+        category: "churrasco",
+        // isPopular: true,
       },
       {
-        id: "appetizer-2",
-        name: "Anéis de Cebola",
-        description: "Anéis de cebola empanados e fritos, servidos com molho especial",
-        price: 7.99,
-        image: burgerImage,
-        category: "appetizers"
+        id: "churras-2",
+        name: "Churrasco Clássico",
+        description:
+          "Cortes selecionados na brasa, servidos com farofa, vinagrete e pão de alho.",
+        price: 15.0,
+        image: churras,
+        category: "churrasco",
       },
       {
-        id: "appetizer-3",
-        name: "Chicken Wings",
-        description: "Asinhas de frango temperadas com molho barbecue picante",
-        price: 12.99,
-        image: burgerImage,
-        category: "appetizers"
-      }
+        id: "churras-3",
+        name: "Churrasco Clássico",
+        description:
+          "Cortes selecionados na brasa, servidos com farofa, vinagrete e pão de alho.",
+        price: 70.0,
+        image: churras,
+        category: "churrasco",
+      },
+      {
+        id: "churras-4",
+        name: "Churrasco Clássico",
+        description:
+          "Cortes selecionados na brasa, servidos com farofa, vinagrete e pão de alho.",
+        price: 40.0,
+        image: churras,
+        category: "churrasco",
+      },
     ],
-    salads: [
+    batatafrita: [
       {
-        id: "salad-1",
-        name: "Salada Caesar",
-        description: "Alface romana, croutons, parmesão e molho caesar tradicional",
-        price: 13.99,
-        image: pizzaImage,
-        category: "salads",
-        isPopular: true
+        id: "fritas-1",
+        name: "Fritas Clássica",
+        description:
+          "Cortadas na medida certa, douradas e crocantes por fora, macias por dentro. Um clássico irresistível!",
+        price: 15.0,
+        image: batata,
+        category: "batatafrita",
+        // isPopular: true,
       },
       {
-        id: "salad-2",
-        name: "Salada Mediterrânea",
-        description: "Mix de folhas, azeitonas, tomate cereja, queijo feta e vinagrete",
-        price: 15.99,
-        image: pizzaImage,
-        category: "salads"
+        id: "fritas-2",
+        name: "Fritas com molho BBQ",
+        description: "O clássico ainda melhor com um toque de molho barbecue",
+        price: 20.0,
+        image: batata,
+        category: "batatafrita",
       },
-      {
-        id: "salad-3",
-        name: "Salada de Quinoa",
-        description: "Quinoa, abacate, nozes, cranberries e molho de limão",
-        price: 14.99,
-        image: pizzaImage,
-        category: "salads"
-      }
     ],
-    soups: [
-      {
-        id: "soup-1",
-        name: "Sopa de Tomate",
-        description: "Sopa cremosa de tomate com manjericão fresco e croutons",
-        price: 8.99,
-        image: drinkImage,
-        category: "soups"
-      },
-      {
-        id: "soup-2",
-        name: "Canja de Galinha",
-        description: "Canja tradicional com frango desfiado, arroz e legumes",
-        price: 10.99,
-        image: drinkImage,
-        category: "soups",
-        isPopular: true
-      },
-      {
-        id: "soup-3",
-        name: "Sopa de Abóbora",
-        description: "Sopa cremosa de abóbora com gengibre e sementes tostadas",
-        price: 9.99,
-        image: drinkImage,
-        category: "soups"
-      }
-    ],
-    desserts: [
-      {
-        id: "dessert-1",
-        name: "Tiramisù",
-        description: "Sobremesa italiana clássica com café, mascarpone e cacau",
-        price: 11.99,
-        image: drinkImage,
-        category: "desserts",
-        isPopular: true
-      },
-      {
-        id: "dessert-2",
-        name: "Cheesecake de Frutas Vermelhas",
-        description: "Cheesecake cremoso com calda de frutas vermelhas frescas",
-        price: 13.99,
-        image: drinkImage,
-        category: "desserts"
-      },
-      {
-        id: "dessert-3",
-        name: "Sorvete Artesanal",
-        description: "Três bolas de sorvete artesanal: baunilha, chocolate e morango",
-        price: 8.99,
-        image: drinkImage,
-        category: "desserts"
-      }
-    ]
   };
 
   const handleOpenDialog = (item: MenuItemType) => {
@@ -245,10 +214,12 @@ const Index = () => {
   };
 
   const handleAddToCart = (item: MenuItemType, note?: string) => {
-    setCartItems(prev => {
-      const existingItem = prev.find(cartItem => cartItem.id === item.id && cartItem.note === note);
+    setCartItems((prev) => {
+      const existingItem = prev.find(
+        (cartItem) => cartItem.id === item.id && cartItem.note === note
+      );
       if (existingItem) {
-        return prev.map(cartItem =>
+        return prev.map((cartItem) =>
           cartItem.id === item.id && cartItem.note === note
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
             : cartItem
@@ -257,7 +228,7 @@ const Index = () => {
         return [...prev, { ...item, quantity: 1, note }];
       }
     });
-    
+
     toast({
       title: "Adicionado ao carrinho!",
       description: `${item.name} foi adicionado ao seu carrinho.`,
@@ -269,8 +240,8 @@ const Index = () => {
       handleRemoveItem(id);
       return;
     }
-    
-    setCartItems(prev =>
+
+    setCartItems((prev) =>
       prev.map((item, index) =>
         `${item.id}-${index}` === id ? { ...item, quantity } : item
       )
@@ -278,7 +249,9 @@ const Index = () => {
   };
 
   const handleRemoveItem = (id: string) => {
-    setCartItems(prev => prev.filter((item, index) => `${item.id}-${index}` !== id));
+    setCartItems((prev) =>
+      prev.filter((item, index) => `${item.id}-${index}` !== id)
+    );
     toast({
       title: "Item removido",
       description: "Item foi removido do seu carrinho.",
@@ -302,19 +275,23 @@ const Index = () => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <img 
-                src={logoImage} 
-                alt="Bistro Delight Logo" 
+              <img
+                src={logoImage}
+                alt="Bistro Delight Logo"
                 className="w-10 h-10 rounded-lg object-cover"
               />
               <div>
-                <h1 className="text-2xl font-bold text-foreground">Bistro Delight</h1>
-                <p className="text-sm text-muted-foreground">Experiência gastronômica gourmet</p>
+                <h1 className="text-2xl font-bold text-foreground">
+                  Pizza do Pablo
+                </h1>
+                <p className="text-sm text-muted-foreground">
+                  Experiência gastronômica gourmet
+                </p>
               </div>
             </div>
             <div className="flex items-center gap-2">
               <Badge variant="secondary" className="hidden sm:flex">
-                {totalItems} {totalItems === 1 ? 'item' : 'itens'} no carrinho
+                {totalItems} {totalItems === 1 ? "item" : "itens"} no carrinho
               </Badge>
               <Button variant="warm" className="relative">
                 <ShoppingCart className="w-4 h-4 mr-2" />
@@ -336,90 +313,77 @@ const Index = () => {
           <div className="lg:col-span-3">
             <Tabs defaultValue="pizza" className="w-full">
               <div className="mb-8 overflow-x-auto scrollbar-none md:scrollbar-auto">
-                <TabsList className="inline-flex h-12 items-center justify-center rounded-md bg-card border p-1 text-muted-foreground min-w-max">
-                  <TabsTrigger value="pizza" className="flex items-center gap-2 whitespace-nowrap data-[state=active]:bg-warm-orange data-[state=active]:text-primary-foreground">
+                <TabsList className="inline-flex h-14 items-center justify-center rounded-md bg-card border p-1 text-muted-foreground min-w-max">
+                  <TabsTrigger
+                    value="pizza"
+                    className="flex items-center gap-2 whitespace-nowrap data-[state=active]:bg-warm-orange data-[state=active]:text-primary-foreground"
+                  >
                     <Pizza className="w-4 h-4" />
                     Pizzas
                   </TabsTrigger>
-                  <TabsTrigger value="burgers" className="flex items-center gap-2 whitespace-nowrap data-[state=active]:bg-warm-orange data-[state=active]:text-primary-foreground">
-                    <Beef className="w-4 h-4" />
+                  <TabsTrigger
+                    value="burgers"
+                    className="flex items-center gap-2 whitespace-nowrap data-[state=active]:bg-warm-orange data-[state=active]:text-primary-foreground"
+                  >
+                    <Sandwich className="w-4 h-4" />
                     Hambúrguers
                   </TabsTrigger>
-                  <TabsTrigger value="appetizers" className="flex items-center gap-2 whitespace-nowrap data-[state=active]:bg-warm-orange data-[state=active]:text-primary-foreground">
-                    <Salad className="w-4 h-4" />
-                    Entradas
+                  <TabsTrigger
+                    value="churrasco"
+                    className="flex items-center gap-2 whitespace-nowrap data-[state=active]:bg-warm-orange data-[state=active]:text-primary-foreground"
+                  >
+                    <Beef className="w-4 h-4" />
+                    Churrasco
                   </TabsTrigger>
-                  <TabsTrigger value="salads" className="flex items-center gap-2 whitespace-nowrap data-[state=active]:bg-warm-orange data-[state=active]:text-primary-foreground">
-                    <Salad className="w-4 h-4" />
-                    Saladas
+                  <TabsTrigger
+                    value="batatafrita"
+                    className="flex items-center gap-2 whitespace-nowrap data-[state=active]:bg-warm-orange data-[state=active]:text-primary-foreground"
+                  >
+                    <HandPlatter className="w-4 h-4" />
+                    Batata-Frita
                   </TabsTrigger>
-                  <TabsTrigger value="soups" className="flex items-center gap-2 whitespace-nowrap data-[state=active]:bg-warm-orange data-[state=active]:text-primary-foreground">
-                    <Soup className="w-4 h-4" />
-                    Sopas
-                  </TabsTrigger>
-                  <TabsTrigger value="drinks" className="flex items-center gap-2 whitespace-nowrap data-[state=active]:bg-warm-orange data-[state=active]:text-primary-foreground">
-                    <Coffee className="w-4 h-4" />
+
+                  <TabsTrigger
+                    value="drinks"
+                    className="flex items-center gap-2 whitespace-nowrap data-[state=active]:bg-warm-orange data-[state=active]:text-primary-foreground"
+                  >
+                    <Beer className="w-4 h-4" />
                     Bebidas
-                  </TabsTrigger>
-                  <TabsTrigger value="desserts" className="flex items-center gap-2 whitespace-nowrap data-[state=active]:bg-warm-orange data-[state=active]:text-primary-foreground">
-                    <IceCream className="w-4 h-4" />
-                    Sobremesas
                   </TabsTrigger>
                 </TabsList>
               </div>
-
               <TabsContent value="pizza">
                 <MenuSection
-                  title="Pizzas Artesanais"
+                  title="🍕 Pizzas Artesanais"
                   items={menuData.pizza}
                   onAddToCart={handleOpenDialog}
                 />
               </TabsContent>
-              
               <TabsContent value="burgers">
                 <MenuSection
-                  title="Hambúrguers Gourmet"
+                  title="🍔 Hambúrguers Gourmet"
                   items={menuData.burgers}
                   onAddToCart={handleOpenDialog}
                 />
               </TabsContent>
-
-              <TabsContent value="appetizers">
-                <MenuSection
-                  title="Entradas Deliciosas"
-                  items={menuData.appetizers}
-                  onAddToCart={handleOpenDialog}
-                />
-              </TabsContent>
-
-              <TabsContent value="salads">
-                <MenuSection
-                  title="Saladas Frescas"
-                  items={menuData.salads}
-                  onAddToCart={handleOpenDialog}
-                />
-              </TabsContent>
-
-              <TabsContent value="soups">
-                <MenuSection
-                  title="Sopas Reconfortantes"
-                  items={menuData.soups}
-                  onAddToCart={handleOpenDialog}
-                />
-              </TabsContent>
-              
               <TabsContent value="drinks">
                 <MenuSection
-                  title="Bebidas Refrescantes"
+                  title="🍹 Bebidas Refrescantes"
                   items={menuData.drinks}
                   onAddToCart={handleOpenDialog}
                 />
               </TabsContent>
-
-              <TabsContent value="desserts">
+              <TabsContent value="churrasco">
                 <MenuSection
-                  title="Sobremesas Irresistíveis"
-                  items={menuData.desserts}
+                  title="🍖 Churrasco Delicioso"
+                  items={menuData.churrasco}
+                  onAddToCart={handleOpenDialog}
+                />
+              </TabsContent>
+              <TabsContent value="batatafrita">
+                <MenuSection
+                  title="🍟 Batatas Crocantes !"
+                  items={menuData.batatafrita}
                   onAddToCart={handleOpenDialog}
                 />
               </TabsContent>
@@ -452,9 +416,9 @@ const Index = () => {
         <div className="container mx-auto px-4 py-6">
           <div className="text-center">
             <p className="text-sm text-muted-foreground">
-              Developed by{" "}
-              <a 
-                href="#" 
+              Desenvolvido por{" "}
+              <a
+                href="#"
                 className="text-warm-orange hover:text-warm-red transition-colors underline underline-offset-4"
               >
                 BlooCode
