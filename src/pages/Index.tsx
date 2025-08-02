@@ -335,7 +335,7 @@ const Index = () => {
           {/* Menu Content */}
           <div className="lg:col-span-3">
             <Tabs defaultValue="pizza" className="w-full">
-              <div className="mb-8 overflow-x-auto">
+              <div className="mb-8 overflow-x-auto scrollbar-none md:scrollbar-auto">
                 <TabsList className="inline-flex h-12 items-center justify-center rounded-md bg-card border p-1 text-muted-foreground min-w-max">
                   <TabsTrigger value="pizza" className="flex items-center gap-2 whitespace-nowrap data-[state=active]:bg-warm-orange data-[state=active]:text-primary-foreground">
                     <Pizza className="w-4 h-4" />
