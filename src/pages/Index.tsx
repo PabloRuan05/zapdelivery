@@ -8,12 +8,13 @@ import { MenuItemType } from "@/components/MenuItem";
 import { AddToCartDialog } from "@/components/AddToCartDialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Coffee, Pizza, Beef, ShoppingCart, Star } from "lucide-react";
+import { Coffee, Pizza, Beef, ShoppingCart, IceCream, Salad, Soup } from "lucide-react";
 
 // Import images
 import pizzaImage from "@/assets/pizza-margherita.jpg";
 import burgerImage from "@/assets/burger-classic.jpg";
 import drinkImage from "@/assets/drink-cocktail.jpg";
+import logoImage from "@/assets/bistro-logo.png";
 
 const Index = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -127,6 +128,114 @@ const Index = () => {
         image: burgerImage,
         category: "burgers"
       }
+    ],
+    appetizers: [
+      {
+        id: "appetizer-1",
+        name: "Bruschetta Clássica",
+        description: "Pão tostado com tomate fresco, manjericão, alho e azeite extravirgem",
+        price: 9.99,
+        image: pizzaImage,
+        category: "appetizers",
+        isPopular: true
+      },
+      {
+        id: "appetizer-2",
+        name: "Anéis de Cebola",
+        description: "Anéis de cebola empanados e fritos, servidos com molho especial",
+        price: 7.99,
+        image: burgerImage,
+        category: "appetizers"
+      },
+      {
+        id: "appetizer-3",
+        name: "Chicken Wings",
+        description: "Asinhas de frango temperadas com molho barbecue picante",
+        price: 12.99,
+        image: burgerImage,
+        category: "appetizers"
+      }
+    ],
+    salads: [
+      {
+        id: "salad-1",
+        name: "Salada Caesar",
+        description: "Alface romana, croutons, parmesão e molho caesar tradicional",
+        price: 13.99,
+        image: pizzaImage,
+        category: "salads",
+        isPopular: true
+      },
+      {
+        id: "salad-2",
+        name: "Salada Mediterrânea",
+        description: "Mix de folhas, azeitonas, tomate cereja, queijo feta e vinagrete",
+        price: 15.99,
+        image: pizzaImage,
+        category: "salads"
+      },
+      {
+        id: "salad-3",
+        name: "Salada de Quinoa",
+        description: "Quinoa, abacate, nozes, cranberries e molho de limão",
+        price: 14.99,
+        image: pizzaImage,
+        category: "salads"
+      }
+    ],
+    soups: [
+      {
+        id: "soup-1",
+        name: "Sopa de Tomate",
+        description: "Sopa cremosa de tomate com manjericão fresco e croutons",
+        price: 8.99,
+        image: drinkImage,
+        category: "soups"
+      },
+      {
+        id: "soup-2",
+        name: "Canja de Galinha",
+        description: "Canja tradicional com frango desfiado, arroz e legumes",
+        price: 10.99,
+        image: drinkImage,
+        category: "soups",
+        isPopular: true
+      },
+      {
+        id: "soup-3",
+        name: "Sopa de Abóbora",
+        description: "Sopa cremosa de abóbora com gengibre e sementes tostadas",
+        price: 9.99,
+        image: drinkImage,
+        category: "soups"
+      }
+    ],
+    desserts: [
+      {
+        id: "dessert-1",
+        name: "Tiramisù",
+        description: "Sobremesa italiana clássica com café, mascarpone e cacau",
+        price: 11.99,
+        image: drinkImage,
+        category: "desserts",
+        isPopular: true
+      },
+      {
+        id: "dessert-2",
+        name: "Cheesecake de Frutas Vermelhas",
+        description: "Cheesecake cremoso com calda de frutas vermelhas frescas",
+        price: 13.99,
+        image: drinkImage,
+        category: "desserts"
+      },
+      {
+        id: "dessert-3",
+        name: "Sorvete Artesanal",
+        description: "Três bolas de sorvete artesanal: baunilha, chocolate e morango",
+        price: 8.99,
+        image: drinkImage,
+        category: "desserts"
+      }
     ]
   };
 
@@ -193,9 +302,11 @@ const Index = () => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-warm-orange to-warm-red rounded-lg flex items-center justify-center">
-                <Star className="w-6 h-6 text-primary-foreground" />
-              </div>
+              <img 
+                src={logoImage} 
+                alt="Bistro Delight Logo" 
+                className="w-10 h-10 rounded-lg object-cover"
+              />
               <div>
                 <h1 className="text-2xl font-bold text-foreground">Bistro Delight</h1>
                 <p className="text-sm text-muted-foreground">Experiência gastronômica gourmet</p>
@@ -224,19 +335,35 @@ const Index = () => {
           {/* Menu Content */}
           <div className="lg:col-span-3">
             <Tabs defaultValue="pizza" className="w-full">
-              <div className="flex justify-center mb-8">
-                <TabsList className="grid w-full max-w-md grid-cols-3 bg-card border">
-                  <TabsTrigger value="pizza" className="flex items-center gap-2 data-[state=active]:bg-warm-orange data-[state=active]:text-primary-foreground">
+              <div className="mb-8 overflow-x-auto">
+                <TabsList className="inline-flex h-12 items-center justify-center rounded-md bg-card border p-1 text-muted-foreground min-w-max">
+                  <TabsTrigger value="pizza" className="flex items-center gap-2 whitespace-nowrap data-[state=active]:bg-warm-orange data-[state=active]:text-primary-foreground">
                     <Pizza className="w-4 h-4" />
                     Pizzas
                   </TabsTrigger>
-                  <TabsTrigger value="burgers" className="flex items-center gap-2 data-[state=active]:bg-warm-orange data-[state=active]:text-primary-foreground">
+                  <TabsTrigger value="burgers" className="flex items-center gap-2 whitespace-nowrap data-[state=active]:bg-warm-orange data-[state=active]:text-primary-foreground">
                     <Beef className="w-4 h-4" />
                     Hambúrguers
                   </TabsTrigger>
-                  <TabsTrigger value="drinks" className="flex items-center gap-2 data-[state=active]:bg-warm-orange data-[state=active]:text-primary-foreground">
+                  <TabsTrigger value="appetizers" className="flex items-center gap-2 whitespace-nowrap data-[state=active]:bg-warm-orange data-[state=active]:text-primary-foreground">
+                    <Salad className="w-4 h-4" />
+                    Entradas
+                  </TabsTrigger>
+                  <TabsTrigger value="salads" className="flex items-center gap-2 whitespace-nowrap data-[state=active]:bg-warm-orange data-[state=active]:text-primary-foreground">
+                    <Salad className="w-4 h-4" />
+                    Saladas
+                  </TabsTrigger>
+                  <TabsTrigger value="soups" className="flex items-center gap-2 whitespace-nowrap data-[state=active]:bg-warm-orange data-[state=active]:text-primary-foreground">
+                    <Soup className="w-4 h-4" />
+                    Sopas
+                  </TabsTrigger>
+                  <TabsTrigger value="drinks" className="flex items-center gap-2 whitespace-nowrap data-[state=active]:bg-warm-orange data-[state=active]:text-primary-foreground">
                     <Coffee className="w-4 h-4" />
                     Bebidas
+                  </TabsTrigger>
+                  <TabsTrigger value="desserts" className="flex items-center gap-2 whitespace-nowrap data-[state=active]:bg-warm-orange data-[state=active]:text-primary-foreground">
+                    <IceCream className="w-4 h-4" />
+                    Sobremesas
                   </TabsTrigger>
                 </TabsList>
               </div>
@@ -256,11 +383,43 @@ const Index = () => {
                   onAddToCart={handleOpenDialog}
                 />
               </TabsContent>
+
+              <TabsContent value="appetizers">
+                <MenuSection
+                  title="Entradas Deliciosas"
+                  items={menuData.appetizers}
+                  onAddToCart={handleOpenDialog}
+                />
+              </TabsContent>
+
+              <TabsContent value="salads">
+                <MenuSection
+                  title="Saladas Frescas"
+                  items={menuData.salads}
+                  onAddToCart={handleOpenDialog}
+                />
+              </TabsContent>
+
+              <TabsContent value="soups">
+                <MenuSection
+                  title="Sopas Reconfortantes"
+                  items={menuData.soups}
+                  onAddToCart={handleOpenDialog}
+                />
+              </TabsContent>
               
               <TabsContent value="drinks">
                 <MenuSection
                   title="Bebidas Refrescantes"
                   items={menuData.drinks}
+                  onAddToCart={handleOpenDialog}
+                />
+              </TabsContent>
+
+              <TabsContent value="desserts">
+                <MenuSection
+                  title="Sobremesas Irresistíveis"
+                  items={menuData.desserts}
                   onAddToCart={handleOpenDialog}
                 />
               </TabsContent>
