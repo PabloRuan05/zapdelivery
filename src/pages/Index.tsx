@@ -295,6 +295,16 @@ const Index = () => {
 
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
+  const scrollToCart = () => {
+    const cartElement = document.getElementById('cart-section');
+    if (cartElement) {
+      cartElement.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-cream to-background">
       {/* Header */}
@@ -316,7 +326,16 @@ const Index = () => {
               <Badge variant="secondary" className="hidden sm:flex">
                 {totalItems} {totalItems === 1 ? 'item' : 'itens'} no carrinho
               </Badge>
-              <Button variant="warm" className="relative">
+              <Button variant="warm" className="relative md:hidden" onClick={scrollToCart}>
+                <ShoppingCart className="w-4 h-4 mr-2" />
+                Carrinho
+                {totalItems > 0 && (
+                  <Badge className="absolute -top-2 -right-2 w-5 h-5 flex items-center justify-center p-0 bg-warm-red text-primary-foreground text-xs">
+                    {totalItems}
+                  </Badge>
+                )}
+              </Button>
+              <Button variant="warm" className="relative hidden md:block">
                 <ShoppingCart className="w-4 h-4 mr-2" />
                 Carrinho
                 {totalItems > 0 && (
@@ -427,7 +446,7 @@ const Index = () => {
           </div>
 
           {/* Cart Sidebar */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1" id="cart-section">
             <div className="sticky top-24">
               <Cart
                 items={cartItems}
