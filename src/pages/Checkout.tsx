@@ -313,7 +313,6 @@ const Checkout = () => {
                         <CreditCard className="w-4 h-4" />
                         Cartão de Crédito/Débito
                       </div>
-                      <p className="text-sm text-muted-foreground">Pague com segurança usando seu cartão</p>
                     </Label>
                     <Badge variant="secondary">Recomendado</Badge>
                   </div>
@@ -325,7 +324,6 @@ const Checkout = () => {
                         <span className="w-4 h-4 text-center">💵</span>
                         Dinheiro na Entrega
                       </div>
-                      <p className="text-sm text-muted-foreground">Pague com dinheiro quando seu pedido chegar</p>
                     </Label>
                   </div>
                   
@@ -336,7 +334,6 @@ const Checkout = () => {
                         <span className="w-4 h-4 text-center">🏦</span>
                         Pix
                       </div>
-                      <p className="text-sm text-muted-foreground">Pagamento instantâneo via Pix</p>
                     </Label>
                   </div>
                 </RadioGroup>
