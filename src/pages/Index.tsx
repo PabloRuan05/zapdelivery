@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { MenuSection } from "@/components/MenuSection";
 import { Cart, CartItem } from "@/components/Cart";
 import { MenuItemType } from "@/components/MenuItem";
-import { AddToCartDialog } from "@/components/AddToCartDialog";
+import { AddToCartDialog, ExtraIngredient } from "@/components/AddToCartDialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { Coffee, Pizza, Beef, ShoppingCart, IceCream, Salad, Soup } from "lucide-react";
@@ -244,17 +244,23 @@ const Index = () => {
     setDialogOpen(true);
   };
 
-  const handleAddToCart = (item: MenuItemType, note?: string) => {
+  const handleAddToCart = (item: MenuItemType, note?: string, extras?: ExtraIngredient[]) => {
     setCartItems(prev => {
-      const existingItem = prev.find(cartItem => cartItem.id === item.id && cartItem.note === note);
+      const existingItem = prev.find(cartItem => 
+        cartItem.id === item.id && 
+        cartItem.note === note && 
+        JSON.stringify(cartItem.extras) === JSON.stringify(extras)
+      );
       if (existingItem) {
         return prev.map(cartItem =>
-          cartItem.id === item.id && cartItem.note === note
+          cartItem.id === item.id && 
+          cartItem.note === note && 
+          JSON.stringify(cartItem.extras) === JSON.stringify(extras)
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
             : cartItem
         );
       } else {
-        return [...prev, { ...item, quantity: 1, note }];
+        return [...prev, { ...item, quantity: 1, note, extras }];
       }
     });
     

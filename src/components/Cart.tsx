@@ -5,10 +5,12 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Minus, Plus, Trash2, ShoppingCart } from "lucide-react";
 import { MenuItemType } from "./MenuItem";
+import { ExtraIngredient } from "./AddToCartDialog";
 
 export interface CartItem extends MenuItemType {
   quantity: number;
   note?: string;
+  extras?: ExtraIngredient[];
 }
 
 interface CartProps {
@@ -20,7 +22,13 @@ interface CartProps {
 
 export const Cart = ({ items, onUpdateQuantity, onRemoveItem, onClearCart }: CartProps) => {
   const navigate = useNavigate();
-  const total = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  
+  const getItemPrice = (item: CartItem) => {
+    const extrasPrice = item.extras?.reduce((sum, extra) => sum + extra.price, 0) || 0;
+    return item.price + extrasPrice;
+  };
+  
+  const total = items.reduce((sum, item) => sum + (getItemPrice(item) * item.quantity), 0);
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
 
   if (items.length === 0) {
@@ -72,10 +80,15 @@ export const Cart = ({ items, onUpdateQuantity, onRemoveItem, onClearCart }: Car
             />
             <div className="flex-1 min-w-0">
               <h4 className="font-medium text-sm truncate">{item.name}</h4>
-                      {item.note && (
+              {item.extras && item.extras.length > 0 && (
+                <p className="text-xs text-muted-foreground truncate">
+                  Extras: {item.extras.map(e => e.name).join(', ')}
+                </p>
+              )}
+              {item.note && (
                 <p className="text-xs text-muted-foreground truncate">Obs: {item.note}</p>
               )}
-              <p className="text-warm-orange font-semibold">R$ {item.price.toFixed(2)}</p>
+              <p className="text-warm-orange font-semibold">R$ {getItemPrice(item).toFixed(2)}</p>
             </div>
             <div className="flex items-center gap-2">
               <Button
