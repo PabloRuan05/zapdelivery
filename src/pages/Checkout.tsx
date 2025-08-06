@@ -39,7 +39,12 @@ const Checkout = () => {
     deliveryNotes: "",
   });
 
-  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const getItemPrice = (item: CartItem) => {
+    const extrasPrice = item.extras?.reduce((sum, extra) => sum + extra.price, 0) || 0;
+    return item.price + extrasPrice;
+  };
+
+  const subtotal = cartItems.reduce((sum, item) => sum + (getItemPrice(item) * item.quantity), 0);
   const total = subtotal;
 
   const handleInputChange = (field: keyof DeliveryInfo, value: string) => {
@@ -66,8 +71,20 @@ const Checkout = () => {
       "",
       "📋 *RESUMO DO PEDIDO:*",
       ...cartItems.map(item => {
-        const itemLine = `• ${item.name} x${item.quantity} - R$ ${(item.price * item.quantity).toFixed(2)}`;
-        return item.note ? `${itemLine}\n  📝 Obs: ${item.note}` : itemLine;
+        const itemPrice = getItemPrice(item);
+        let itemLines = [`• ${item.name} x${item.quantity} - R$ ${(itemPrice * item.quantity).toFixed(2)}`];
+        
+        // Add extras if they exist
+        if (item.extras && item.extras.length > 0) {
+          itemLines.push(...item.extras.map(extra => `  + ${extra.name} - R$ ${extra.price.toFixed(2)}`));
+        }
+        
+        // Add note if it exists
+        if (item.note) {
+          itemLines.push(`  📝 Obs: ${item.note}`);
+        }
+        
+        return itemLines.join('\n');
       }),
       "",
       `*TOTAL: R$ ${total.toFixed(2)}*`,
@@ -155,13 +172,21 @@ const Checkout = () => {
                       alt={item.name}
                       className="w-12 h-12 object-cover rounded"
                     />
-                    <div className="flex-1">
-                      <h4 className="font-medium text-sm">{item.name}</h4>
-                      <p className="text-xs text-muted-foreground">Qtd: {item.quantity}</p>
-                    </div>
-                    <span className="font-semibold text-warm-orange">
-                      R$ {(item.price * item.quantity).toFixed(2)}
-                    </span>
+                     <div className="flex-1">
+                       <h4 className="font-medium text-sm">{item.name}</h4>
+                       {item.extras && item.extras.length > 0 && (
+                         <p className="text-xs text-muted-foreground">
+                           Extras: {item.extras.map(e => `${e.name} (+R$ ${e.price.toFixed(2)})`).join(', ')}
+                         </p>
+                       )}
+                       {item.note && (
+                         <p className="text-xs text-muted-foreground">Obs: {item.note}</p>
+                       )}
+                       <p className="text-xs text-muted-foreground">Qtd: {item.quantity}</p>
+                     </div>
+                     <span className="font-semibold text-warm-orange">
+                       R$ {(getItemPrice(item) * item.quantity).toFixed(2)}
+                     </span>
                   </div>
                 ))}
                 
