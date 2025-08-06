@@ -4,8 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Minus, Plus, Trash2, ShoppingCart } from "lucide-react";
-import { MenuItemType } from "./MenuItem";
-import { ExtraIngredient } from "./AddToCartDialog";
+import { MenuItemType, ExtraIngredient } from "./MenuItem";
 
 export interface CartItem extends MenuItemType {
   quantity: number;

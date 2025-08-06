@@ -4,8 +4,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { MenuSection } from "@/components/MenuSection";
 import { Cart, CartItem } from "@/components/Cart";
-import { MenuItemType } from "@/components/MenuItem";
-import { AddToCartDialog, ExtraIngredient } from "@/components/AddToCartDialog";
+import { MenuItemType, ExtraIngredient } from "@/components/MenuItem";
+import { AddToCartDialog } from "@/components/AddToCartDialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { Coffee, Pizza, Beef, ShoppingCart, IceCream, Salad, Soup } from "lucide-react";
@@ -67,7 +67,14 @@ const Index = () => {
         price: 18.99,
         image: pizzaImage,
         category: "pizza",
-        isPopular: true
+        isPopular: true,
+        extras: [
+          { id: "extra-cheese", name: "Queijo Extra", price: 3.50 },
+          { id: "extra-bacon", name: "Bacon", price: 5.00 },
+          { id: "extra-mushrooms", name: "Cogumelos", price: 4.00 },
+          { id: "extra-olives", name: "Azeitonas", price: 2.50 },
+          { id: "extra-tomatoes", name: "Tomates Extra", price: 2.00 }
+        ]
       },
       {
         id: "pizza-2",
@@ -75,7 +82,13 @@ const Index = () => {
         description: "Pepperoni, queijo mussarela e nosso molho de tomate especial",
         price: 21.99,
         image: pizzaImage,
-        category: "pizza"
+        category: "pizza",
+        extras: [
+          { id: "extra-cheese", name: "Queijo Extra", price: 3.50 },
+          { id: "extra-pepperoni", name: "Pepperoni Extra", price: 6.00 },
+          { id: "extra-mushrooms", name: "Cogumelos", price: 4.00 },
+          { id: "extra-olives", name: "Azeitonas", price: 2.50 }
+        ]
       },
       {
         id: "pizza-3",
@@ -83,7 +96,11 @@ const Index = () => {
         description: "Mistura de quatro queijos: mussarela, gorgonzola, parmesão e ricota",
         price: 23.99,
         image: pizzaImage,
-        category: "pizza"
+        category: "pizza",
+        extras: [
+          { id: "extra-truffle", name: "Azeite Trufado", price: 8.00 },
+          { id: "extra-nuts", name: "Nozes", price: 4.50 }
+        ]
       },
       {
         id: "pizza-4",
@@ -91,7 +108,12 @@ const Index = () => {
         description: "Pimentões, cogumelos, azeitonas, cebolas e ervas frescas",
         price: 19.99,
         image: pizzaImage,
-        category: "pizza"
+        category: "pizza",
+        extras: [
+          { id: "extra-cheese", name: "Queijo Extra", price: 3.50 },
+          { id: "extra-avocado", name: "Abacate", price: 5.50 },
+          { id: "extra-spinach", name: "Espinafre", price: 3.00 }
+        ]
       }
     ],
     burgers: [
@@ -102,7 +124,13 @@ const Index = () => {
         price: 15.99,
         image: burgerImage,
         category: "burgers",
-        isPopular: true
+        isPopular: true,
+        extras: [
+          { id: "extra-cheese", name: "Queijo Extra", price: 2.50 },
+          { id: "extra-bacon", name: "Bacon", price: 4.00 },
+          { id: "extra-pickles", name: "Picles Extra", price: 1.50 },
+          { id: "extra-onion-rings", name: "Onion Rings", price: 3.50 }
+        ]
       },
       {
         id: "burger-2",
@@ -110,7 +138,12 @@ const Index = () => {
         description: "Hambúrguer bovino, bacon crocante, molho BBQ, queijo cheddar e onion rings",
         price: 18.99,
         image: burgerImage,
-        category: "burgers"
+        category: "burgers",
+        extras: [
+          { id: "extra-bacon", name: "Bacon Extra", price: 4.00 },
+          { id: "extra-cheese", name: "Queijo Extra", price: 2.50 },
+          { id: "extra-jalapeño", name: "Jalapeño", price: 2.00 }
+        ]
       },
       {
         id: "burger-3",
@@ -118,7 +151,11 @@ const Index = () => {
         description: "Peito de frango grelhado, abacate, queijo suíço e maionese de ervas",
         price: 16.99,
         image: burgerImage,
-        category: "burgers"
+        category: "burgers",
+        extras: [
+          { id: "extra-avocado", name: "Abacate Extra", price: 3.00 },
+          { id: "extra-cheese", name: "Queijo Suíço Extra", price: 3.50 }
+        ]
       },
       {
         id: "burger-4",
@@ -127,6 +164,7 @@ const Index = () => {
         price: 14.99,
         image: burgerImage,
         category: "burgers"
+        // No extras for vegan burger
       }
     ],
     appetizers: [

@@ -5,13 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Plus } from "lucide-react";
-import { MenuItemType } from "./MenuItem";
-
-export interface ExtraIngredient {
-  id: string;
-  name: string;
-  price: number;
-}
+import { MenuItemType, ExtraIngredient } from "./MenuItem";
 
 interface AddToCartDialogProps {
   item: MenuItemType | null;
@@ -20,15 +14,6 @@ interface AddToCartDialogProps {
   onAddToCart: (item: MenuItemType, note?: string, extras?: ExtraIngredient[]) => void;
 }
 
-// Sample extra ingredients - in a real app, this would come from the backend
-const EXTRA_INGREDIENTS: ExtraIngredient[] = [
-  { id: "extra-cheese", name: "Queijo Extra", price: 3.50 },
-  { id: "extra-bacon", name: "Bacon", price: 5.00 },
-  { id: "extra-mushrooms", name: "Cogumelos", price: 4.00 },
-  { id: "extra-pepperoni", name: "Pepperoni", price: 6.00 },
-  { id: "extra-olives", name: "Azeitonas", price: 2.50 },
-  { id: "extra-tomatoes", name: "Tomates Extra", price: 2.00 },
-];
 
 export const AddToCartDialog = ({ item, open, onClose, onAddToCart }: AddToCartDialogProps) => {
   const [note, setNote] = useState("");
@@ -95,31 +80,33 @@ export const AddToCartDialog = ({ item, open, onClose, onAddToCart }: AddToCartD
           </div>
 
           {/* Extra Ingredients */}
-          <div className="space-y-3">
-            <Label className="text-base font-medium">Ingredientes Extras (Opcional)</Label>
-            <div className="grid grid-cols-1 gap-2 max-h-40 overflow-y-auto">
-              {EXTRA_INGREDIENTS.map((extra) => (
-                <div key={extra.id} className="flex items-center justify-between p-2 rounded-md border border-border hover:bg-muted/50 transition-colors">
-                  <div className="flex items-center space-x-3">
-                    <Checkbox
-                      id={extra.id}
-                      checked={selectedExtras.some(e => e.id === extra.id)}
-                      onCheckedChange={() => handleExtraToggle(extra)}
-                    />
-                    <Label 
-                      htmlFor={extra.id} 
-                      className="text-sm font-normal cursor-pointer"
-                    >
-                      {extra.name}
-                    </Label>
+          {item.extras && item.extras.length > 0 && (
+            <div className="space-y-3">
+              <Label className="text-base font-medium">Ingredientes Extras (Opcional)</Label>
+              <div className="grid grid-cols-1 gap-2 max-h-40 overflow-y-auto">
+                {item.extras.map((extra) => (
+                  <div key={extra.id} className="flex items-center justify-between p-2 rounded-md border border-border hover:bg-muted/50 transition-colors">
+                    <div className="flex items-center space-x-3">
+                      <Checkbox
+                        id={extra.id}
+                        checked={selectedExtras.some(e => e.id === extra.id)}
+                        onCheckedChange={() => handleExtraToggle(extra)}
+                      />
+                      <Label 
+                        htmlFor={extra.id} 
+                        className="text-sm font-normal cursor-pointer"
+                      >
+                        {extra.name}
+                      </Label>
+                    </div>
+                    <span className="text-sm font-medium text-warm-orange">
+                      + R$ {extra.price.toFixed(2)}
+                    </span>
                   </div>
-                  <span className="text-sm font-medium text-warm-orange">
-                    + R$ {extra.price.toFixed(2)}
-                  </span>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Note Input */}
           <div className="space-y-2">

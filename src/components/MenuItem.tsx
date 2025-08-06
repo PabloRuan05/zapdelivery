@@ -3,6 +3,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Plus } from "lucide-react";
 
+export interface ExtraIngredient {
+  id: string;
+  name: string;
+  price: number;
+}
+
 export interface MenuItemType {
   id: string;
   name: string;
@@ -11,6 +17,7 @@ export interface MenuItemType {
   image: string;
   category: string;
   isPopular?: boolean;
+  extras?: ExtraIngredient[];
 }
 
 interface MenuItemProps {
