@@ -374,7 +374,6 @@ const Checkout = () => {
                         Cartão de Crédito/Débito
                       </div>
                     </Label>
-                    <Badge variant="secondary">Recomendado</Badge>
                   </div>
 
                   <div className="flex items-center space-x-2 p-4 border rounded-lg hover:bg-accent/50 cursor-pointer">
