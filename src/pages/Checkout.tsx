@@ -9,7 +9,15 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, CreditCard, Truck, MapPin, Phone, User, Mail } from "lucide-react";
+import {
+  ArrowLeft,
+  CreditCard,
+  Truck,
+  MapPin,
+  Phone,
+  User,
+  Mail,
+} from "lucide-react";
 import { CartItem } from "@/components/Cart";
 
 interface DeliveryInfo {
@@ -40,22 +48,35 @@ const Checkout = () => {
   });
 
   const getItemPrice = (item: CartItem) => {
-    const extrasPrice = item.extras?.reduce((sum, extra) => sum + extra.price, 0) || 0;
+    const extrasPrice =
+      item.extras?.reduce((sum, extra) => sum + extra.price, 0) || 0;
     return item.price + extrasPrice;
   };
 
-  const subtotal = cartItems.reduce((sum, item) => sum + (getItemPrice(item) * item.quantity), 0);
+  const subtotal = cartItems.reduce(
+    (sum, item) => sum + getItemPrice(item) * item.quantity,
+    0
+  );
   const total = subtotal;
 
   const handleInputChange = (field: keyof DeliveryInfo, value: string) => {
-    setDeliveryInfo(prev => ({ ...prev, [field]: value }));
+    setDeliveryInfo((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleSubmitOrder = () => {
     // Validate required fields
-    const requiredFields = ['fullName', 'phone', 'address', 'neighborhood', 'block', 'houseNumber'];
-    const missingFields = requiredFields.filter(field => !deliveryInfo[field as keyof DeliveryInfo].trim());
-    
+    const requiredFields = [
+      "fullName",
+      "phone",
+      "address",
+      "neighborhood",
+      "block",
+      "houseNumber",
+    ];
+    const missingFields = requiredFields.filter(
+      (field) => !deliveryInfo[field as keyof DeliveryInfo].trim()
+    );
+
     if (missingFields.length > 0) {
       toast({
         title: "Informações Faltando",
@@ -70,21 +91,29 @@ const Checkout = () => {
       "🍽️ *NOVO PEDIDO*",
       "",
       "📋 *RESUMO DO PEDIDO:*",
-      ...cartItems.map(item => {
+      ...cartItems.map((item) => {
         const itemPrice = getItemPrice(item);
-        let itemLines = [`• ${item.name} x${item.quantity} - R$ ${(itemPrice * item.quantity).toFixed(2)}`];
-        
+        let itemLines = [
+          `• ${item.name} x${item.quantity} - R$ ${(
+            itemPrice * item.quantity
+          ).toFixed(2)}`,
+        ];
+
         // Add extras if they exist
         if (item.extras && item.extras.length > 0) {
-          itemLines.push(...item.extras.map(extra => `  + ${extra.name} - R$ ${extra.price.toFixed(2)}`));
+          itemLines.push(
+            ...item.extras.map(
+              (extra) => `  + ${extra.name} - R$ ${extra.price.toFixed(2)}`
+            )
+          );
         }
-        
+
         // Add note if it exists
         if (item.note) {
           itemLines.push(`  📝 Obs: ${item.note}`);
         }
-        
-        return itemLines.join('\n');
+
+        return itemLines.join("\n");
       }),
       "",
       `*TOTAL: R$ ${total.toFixed(2)}*`,
@@ -92,22 +121,27 @@ const Checkout = () => {
       "🚚 *INFORMAÇÕES DE ENTREGA:*",
       `👤 Nome: ${deliveryInfo.fullName}`,
       `📞 Telefone: ${deliveryInfo.phone}`,
-      `📍 Endereço: ${deliveryInfo.address}`,
+      `📍 Rua: ${deliveryInfo.address}`,
       `🏘️ Bairro: ${deliveryInfo.neighborhood}`,
       `🏢 Quadra: ${deliveryInfo.block}`,
-      `🏠 Casa/Prédio: ${deliveryInfo.houseNumber}`,
-      ...(deliveryInfo.deliveryNotes ? [`📝 Observações: ${deliveryInfo.deliveryNotes}`] : []),
+      `🏠 Casa: ${deliveryInfo.houseNumber}`,
+      ...(deliveryInfo.deliveryNotes
+        ? [`📝 Observações: ${deliveryInfo.deliveryNotes}`]
+        : []),
       "",
       "💳 *MÉTODO DE PAGAMENTO:*",
-      paymentMethod === "card" ? "💳 Cartão de Crédito/Débito" : 
-      paymentMethod === "cash" ? "💵 Dinheiro na Entrega" : "🏦 Pix"
+      paymentMethod === "card"
+        ? "💳 Cartão de Crédito/Débito"
+        : paymentMethod === "cash"
+        ? "💵 Dinheiro na Entrega"
+        : "🏦 Pix",
     ].join("\n");
 
     // Encode the message for URL
     const encodedMessage = encodeURIComponent(orderData);
-    
+
     // Redirect to WhatsApp
-    window.location.href = `https://api.whatsapp.com/send?phone=5598982074378&text=${encodedMessage}`;
+    window.location.href = `https://api.whatsapp.com/send?phone=559891102463&text=${encodedMessage}`;
   };
 
   if (cartItems.length === 0) {
@@ -116,9 +150,12 @@ const Checkout = () => {
         <div className="container mx-auto px-4 py-8">
           <Card className="max-w-md mx-auto text-center">
             <CardContent className="p-8">
-              <h2 className="text-2xl font-bold mb-4">Nenhum Item no Carrinho</h2>
+              <h2 className="text-2xl font-bold mb-4">
+                Nenhum Item no Carrinho
+              </h2>
               <p className="text-muted-foreground mb-6">
-                Seu carrinho está vazio. Adicione alguns itens antes de finalizar o pedido.
+                Seu carrinho está vazio. Adicione alguns itens antes de
+                finalizar o pedido.
               </p>
               <Button onClick={() => navigate("/")} variant="warm">
                 <ArrowLeft className="w-4 h-4 mr-2" />
@@ -137,17 +174,17 @@ const Checkout = () => {
       <header className="bg-card/80 backdrop-blur-sm border-b border-border/50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center gap-3">
-            <Button
-              onClick={() => navigate("/")}
-              variant="ghost"
-              size="sm"
-            >
+            <Button onClick={() => navigate("/")} variant="ghost" size="sm">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Voltar ao Cardápio
             </Button>
             <div>
-              <h1 className="text-2xl font-bold text-foreground">Finalização do Pedido</h1>
-              <p className="text-sm text-muted-foreground">Complete seu pedido</p>
+              <h1 className="text-2xl font-bold text-foreground">
+                Finalização do Pedido
+              </h1>
+              <p className="text-sm text-muted-foreground">
+                Complete seu pedido
+              </p>
             </div>
           </div>
         </div>
@@ -172,30 +209,39 @@ const Checkout = () => {
                       alt={item.name}
                       className="w-12 h-12 object-cover rounded"
                     />
-                     <div className="flex-1">
-                       <h4 className="font-medium text-sm">{item.name}</h4>
-                       {item.extras && item.extras.length > 0 && (
-                         <p className="text-xs text-muted-foreground">
-                           Extras: {item.extras.map(e => `${e.name} (+R$ ${e.price.toFixed(2)})`).join(', ')}
-                         </p>
-                       )}
-                       {item.note && (
-                         <p className="text-xs text-muted-foreground">Obs: {item.note}</p>
-                       )}
-                       <p className="text-xs text-muted-foreground">Qtd: {item.quantity}</p>
-                     </div>
-                     <span className="font-semibold text-warm-orange">
-                       R$ {(getItemPrice(item) * item.quantity).toFixed(2)}
-                     </span>
+                    <div className="flex-1">
+                      <h4 className="font-medium text-sm">{item.name}</h4>
+                      {item.extras && item.extras.length > 0 && (
+                        <p className="text-xs text-muted-foreground">
+                          Extras:{" "}
+                          {item.extras
+                            .map((e) => `${e.name} (+R$ ${e.price.toFixed(2)})`)
+                            .join(", ")}
+                        </p>
+                      )}
+                      {item.note && (
+                        <p className="text-xs text-muted-foreground">
+                          Obs: {item.note}
+                        </p>
+                      )}
+                      <p className="text-xs text-muted-foreground">
+                        Qtd: {item.quantity}
+                      </p>
+                    </div>
+                    <span className="font-semibold text-warm-orange">
+                      R$ {(getItemPrice(item) * item.quantity).toFixed(2)}
+                    </span>
                   </div>
                 ))}
-                
+
                 <Separator />
-                
+
                 <div className="space-y-2">
                   <div className="flex justify-between text-lg font-bold">
                     <span>Total</span>
-                    <span className="text-warm-orange">R$ {total.toFixed(2)}</span>
+                    <span className="text-warm-orange">
+                      R$ {total.toFixed(2)}
+                    </span>
                   </div>
                 </div>
               </CardContent>
@@ -216,16 +262,18 @@ const Checkout = () => {
                 <div className="space-y-2">
                   <Label htmlFor="fullName" className="flex items-center gap-2">
                     <User className="w-4 h-4" />
-                    Nome Completo *
+                    Nome *
                   </Label>
                   <Input
                     id="fullName"
                     value={deliveryInfo.fullName}
-                    onChange={(e) => handleInputChange("fullName", e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("fullName", e.target.value)
+                    }
                     placeholder="Digite seu nome completo"
                   />
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="phone" className="flex items-center gap-2">
                     <Phone className="w-4 h-4" />
@@ -238,17 +286,19 @@ const Checkout = () => {
                     placeholder="Digite seu número de telefone"
                   />
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="neighborhood">Bairro *</Label>
                   <Input
                     id="neighborhood"
                     value={deliveryInfo.neighborhood}
-                    onChange={(e) => handleInputChange("neighborhood", e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("neighborhood", e.target.value)
+                    }
                     placeholder="Digite seu bairro"
                   />
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="block">Quadra *</Label>
                   <Input
@@ -258,37 +308,44 @@ const Checkout = () => {
                     placeholder="Digite o número/nome da quadra"
                   />
                 </div>
-                
-                
+
                 <div className="md:col-span-2 space-y-2">
                   <Label htmlFor="address" className="flex items-center gap-2">
                     <MapPin className="w-4 h-4" />
-                    Endereço da Rua *
+                    Rua *
                   </Label>
                   <Input
                     id="address"
                     value={deliveryInfo.address}
-                    onChange={(e) => handleInputChange("address", e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("address", e.target.value)
+                    }
                     placeholder="Digite o endereço da sua rua"
                   />
                 </div>
-                
+
                 <div className="space-y-2">
-                  <Label htmlFor="houseNumber">Número da Casa/Prédio *</Label>
+                  <Label htmlFor="houseNumber">Número da Casa *</Label>
                   <Input
                     id="houseNumber"
                     value={deliveryInfo.houseNumber}
-                    onChange={(e) => handleInputChange("houseNumber", e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("houseNumber", e.target.value)
+                    }
                     placeholder="Digite o número da casa ou prédio"
                   />
                 </div>
-                
+
                 <div className="md:col-span-2 space-y-2">
-                  <Label htmlFor="deliveryNotes">Observações de Entrega (Opcional)</Label>
+                  <Label htmlFor="deliveryNotes">
+                    Observações de Entrega (Opcional)
+                  </Label>
                   <Textarea
                     id="deliveryNotes"
                     value={deliveryInfo.deliveryNotes}
-                    onChange={(e) => handleInputChange("deliveryNotes", e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("deliveryNotes", e.target.value)
+                    }
                     placeholder="Instruções especiais para a entrega..."
                     rows={3}
                   />
@@ -305,7 +362,10 @@ const Checkout = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod}>
+                <RadioGroup
+                  value={paymentMethod}
+                  onValueChange={setPaymentMethod}
+                >
                   <div className="flex items-center space-x-2 p-4 border rounded-lg hover:bg-accent/50 cursor-pointer">
                     <RadioGroupItem value="card" id="card" />
                     <Label htmlFor="card" className="flex-1 cursor-pointer">
@@ -316,7 +376,7 @@ const Checkout = () => {
                     </Label>
                     <Badge variant="secondary">Recomendado</Badge>
                   </div>
-                  
+
                   <div className="flex items-center space-x-2 p-4 border rounded-lg hover:bg-accent/50 cursor-pointer">
                     <RadioGroupItem value="cash" id="cash" />
                     <Label htmlFor="cash" className="flex-1 cursor-pointer">
@@ -326,7 +386,7 @@ const Checkout = () => {
                       </div>
                     </Label>
                   </div>
-                  
+
                   <div className="flex items-center space-x-2 p-4 border rounded-lg hover:bg-accent/50 cursor-pointer">
                     <RadioGroupItem value="pix" id="pix" />
                     <Label htmlFor="pix" className="flex-1 cursor-pointer">
