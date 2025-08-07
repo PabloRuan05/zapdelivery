@@ -381,7 +381,7 @@ const Checkout = () => {
                     <Label htmlFor="cash" className="flex-1 cursor-pointer">
                       <div className="flex items-center gap-2">
                         <span className="w-4 h-4 text-center">💵</span>
-                        Dinheiro na Entrega
+                        Dinheiro
                       </div>
                     </Label>
                   </div>
