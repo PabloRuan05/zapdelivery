@@ -608,14 +608,6 @@ const Index = () => {
                   onAddToCart={handleOpenDialog}
                 />
               </TabsContent>
-
-              <TabsContent value="drinks">
-                <MenuSection
-                  title="Bebidas Refrescantes"
-                  items={menuData.drinks}
-                  onAddToCart={handleOpenDialog}
-                />
-              </TabsContent>
             </Tabs>
           </div>
 
@@ -645,7 +637,7 @@ const Index = () => {
         <div className="container mx-auto px-4 py-6">
           <div className="text-center">
             <p className="text-sm text-muted-foreground">
-              Developed by{" "}
+              Desenvolvido por{" "}
               <a
                 href="#"
                 className="text-warm-orange hover:text-warm-red transition-colors underline underline-offset-4"
